@@ -1,8 +1,23 @@
+import Feed from "@components/Feed";
 
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <section className="w-full flex-center flex-col">
+      <h1 className="head_text text-center">
+        Discover & Share
+        <br className="" />
+        <span className="orange_gradient text-center">AI-Powered Prompts</span>
+      </h1>
+      <p className="desc text-center">
+        <span className="font-bold">Promptify</span>, an open-source AI
+        prompting tool. <br />
+        Kickstart your creative journey with Promptify – where you discover,
+        create, and share imaginative prompts like never before.
+      </p>
 
-export default Home
+      <Feed />
+    </section>
+  );
+};
+
+export default Home;
