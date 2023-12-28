@@ -10,8 +10,8 @@ const Home = () => {
       <p className="desc text-center">
         <span className="font-bold">Promptify</span>, an open-source AI
         prompting tool. <br />
-        Kickstart your creative journey with Promptify – where you discover,
-        create, and share imaginative prompts like never before.
+        Kickstart your creative journey with Promptify – where you <span className="font-bold">discover</span>,
+        <span className="font-bold">create</span>, and <span className="font-bold">share</span> imaginative prompts like never before.
       </p>
 
       <Feed />
