@@ -5,7 +5,7 @@ const nextConfig = {
     // appDir: true,
   },
   images: {
-    domains: ["1h3.googleusercontent.com"],
+    domains: ["lh3.googleusercontent.com"],
   },
   webpack(config) {
     config.experiments = {
