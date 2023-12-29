@@ -78,7 +78,7 @@ const Nav = () => {
               width={37}
               height={37}
               className="rounded-full outline"
-              onClick={() => setToggleDropDown((prev) => !prev)}
+              onClick={() => setToggleDropdown(!toggleDropdown)}
             />
             {toggleDropDown && (
               <div className="dropdown">
