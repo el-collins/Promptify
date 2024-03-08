@@ -1,26 +1,40 @@
+// This directive is specific to Next.js, indicating that this file should run only on the client-side.
 "use client";
 
+// Import necessary modules and functions from Next.js and React
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
+// Define the navigation component called Nav
 const Nav = () => {
+  // Use the useSession hook to get user session data
   const { data: session } = useSession();
-  const [providers, setProviders] = useState(null);
-  const [toggleDropDown, setToggleDropDown] = useState(false);
 
+  // State to store authentication providers
+  const [providers, setProviders] = useState(null);
+
+  // State to toggle the mobile dropdown menu
+  const [toggleDropdown, setToggleDropdown] = useState(false);
+
+  // useEffect hook to fetch authentication providers when the component mounts
   useEffect(() => {
     const setUpProviders = async () => {
+      // Fetch authentication providers from the server
       const response = await getProviders();
 
+      // Set the providers in the component state
       setProviders(response);
     };
+    // Call the setup function
     setUpProviders();
   }, []);
 
+  // Return the JSX structure of the navigation component
   return (
     <nav className="flex-between w-full mb-16 pt-3">
+      {/* Brand logo and name */}
       <Link href="/" className="flex gap-2 flex-center">
         <Image
           src="/assets/images/logo.svg"
@@ -44,7 +58,7 @@ const Nav = () => {
             </button>
             <Link href="/profile">
               <Image
-                 src={session?.user.image}
+                src={session?.user.image}
                 alt="profile-image"
                 width={37}
                 height={37}
@@ -68,38 +82,44 @@ const Nav = () => {
           </>
         )}
       </div>
+
       {/* Moblie Navigation */}
       <div className="sm:hidden flex relative">
+        {/* If user is authenticated, show profile-related links */}
         {session?.user ? (
           <div className="flex">
+            {/* Display user profile image and toggle dropdown on click */}
+
             <Image
               src={session?.user.image}
               alt="profile-image"
               width={37}
               height={37}
               className="rounded-full outline"
-              onClick={() => setToggleDropdown(!toggleDropdown)}
+              onClick={() => setToggleDropdown((prev) => !prev)}
             />
-            {toggleDropDown && (
+            {/* Display dropdown menu if toggleDropdown state is true */}
+
+            {toggleDropdown && (
               <div className="dropdown">
                 <Link
                   href="/profile"
                   className="dropdown_link"
-                  onClick={() => setToggleDropDown(false)}
+                  onClick={() => setToggleDropdown(false)}
                 >
                   My Profle
                 </Link>
                 <Link
                   href="/create-prompt"
                   className="dropdown_link"
-                  onClick={() => setToggleDropDown(false)}
+                  onClick={() => setToggleDropdown(false)}
                 >
                   Create Prompt
                 </Link>
                 <button
                   type="button"
                   onClick={() => {
-                    setToggleDropDown(false);
+                    setToggleDropdown(false);
                     signOut();
                   }}
                   className="mt-5 w-full black_btn"
@@ -111,6 +131,7 @@ const Nav = () => {
           </div>
         ) : (
           <>
+            {/* If user is not authenticated, show sign-in buttons for available providers */}
             {providers &&
               Object.values(providers).map((provider) => (
                 <button

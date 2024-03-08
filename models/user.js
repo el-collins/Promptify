@@ -14,10 +14,16 @@ const UserShema = new Schema({
       "Username invalid, it should contain 8-20 alphanumeric letters and be unique!",
     ],
   },
+  password: {
+    type: "string",
+    required: [true, "Username is required!"],
+  },
   image: {
     type: "String",
+    default:
+      "https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/",
   },
 });
 
-const User = models.User || model('User', UserShema);
+const User = models.User || model("User", UserShema);
 export default User;

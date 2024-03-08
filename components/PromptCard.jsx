@@ -1,23 +1,30 @@
+// Import necessary modules and functions
 "use client";
 import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
+// PromptCard component receives post data and callback functions as props
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
-  const {data:session} = useSession();
+  // Get user session data using the useSession hook
+  const { data: session } = useSession();
+  // Get the current pathname and router object using Next.js navigation hooks
   const pathName = usePathname();
   const router = useRouter();
 
-
+  // State to manage the copied status of the prompt
   const [copied, setCopied] = useState("");
 
+  // Function to handle copying the prompt text to the clipboard
   const handleCopy = () => {
     setCopied(post.prompt);
     navigator.clipboard.writeText(post.prompt);
+    // Reset the copied status after 3 seconds
     setTimeout(() => setCopied(""), 3000);
   };
 
+  // Render the PromptCard component
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">

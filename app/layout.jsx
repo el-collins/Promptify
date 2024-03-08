@@ -5,7 +5,7 @@ import Provider from "@components/Provider";
 
 export const metadata = {
   title: "Promptify",
-  description: "Discover & Share AI Prompts",
+  description: "Discover & Share Amazing AI Prompts",
 };
 
 const RootLayout = ({ children }) => {
@@ -25,13 +25,13 @@ const RootLayout = ({ children }) => {
           type="image/<generated>"
           sizes="<generated>"
         />
-
       </head>
       <body>
         <Provider>
           <div className="main">
             <div className="gradient" />
           </div>
+
           <main className="app">
             <Nav />
             {children}
