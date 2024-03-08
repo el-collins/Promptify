@@ -1,11 +1,12 @@
-import { connnectToDB } from "@utils/database";
+import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
 export const POST = async (req) => {
-  const { userId, prompt, tag } = await req.json();
+  const { prompt, userId, tag } = await req.json();
 
   try {
-    await connnectToDB();
+    await connectToDB();
+    // connect  to the database and create a new document in the collection "Prompts" with data provided by the request
     const newPrompt = new Prompt({
       creator: userId,
       prompt,
