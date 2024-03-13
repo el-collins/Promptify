@@ -1,27 +1,35 @@
-import mongoose from "mongoose";
-let isConnected = false; // track the connection state
+import mongoose from "mongoose"; // Importing mongoose package for connecting to MongoDB
 
+let isConnected = false; // Variable to track the connection state
+
+// Function to connect to the MongoDB database
 export const connectToDB = async () => {
-  mongoose.set("strictQuery", true);
+ // Setting the strictQuery option to true to enforce data validation rules
+ mongoose.set("strictQuery", true);
 
-  if (isConnected) {
-    console.log("MongoDB is already connected");
-    return;
-  }
+ // If the database is already connected, print a message and return
+ if (isConnected) {
+   console.log("MongoDB is already connected");
+   return;
+ }
 
-  try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      dbName: "share_prompt",
-      // useNewUrlparser: true,
-    //   useUnifiedTopology: true,
-    });
+ try {
+   // Connecting to MongoDB using the MONGODB_URI environment variable and setting the database name to 'share_prompt'
+   await mongoose.connect(process.env.MONGODB_URI, {
+     dbName: "share_prompt",
+     // Optional configuration for using new URL parser and unified topology
+     // useNewUrlparser: true,
+     // useUnifiedTopology: true,
+   });
 
-    isConnected = true;
+   // Setting the isConnected variable to true after successful connection
+   isConnected = true;
 
-    console.log("Successfully connected to MongoDB");
-  } catch (err) {
-    console.error(`Failed to connect to MongoDB`, err);
-    process.exit();
-  }
+   // Logging a success message on connecting to MongoDB
+   console.log("Successfully connected to MongoDB");
+ } catch (err) {
+   // Logging an error message and exiting the process in case of connection failure
+   console.error(`Failed to connect to MongoDB`, err);
+   process.exit();
+ }
 };
-

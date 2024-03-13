@@ -37,7 +37,6 @@ const handler = NextAuth({
       
       // Update user id
       session.user.id = sessionUser._id.toString();
-
       return session;
     },
 
