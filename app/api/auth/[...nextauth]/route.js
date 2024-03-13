@@ -13,36 +13,37 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "email", type: "email", placeholder: "email" },
-        username: {
-          label: "username",
-          type: "text",
-          placeholder: "username",
-        },
-        password: {
-          label: "password",
-          type: "password",
-          placeholder: "password",
-        },
-      },
-    }),
+    // CredentialsProvider({
+    //   name: "Credentials",
+    //   credentials: {
+    //     email: { label: "email", type: "email", placeholder: "email" },
+    //     username: {
+    //       label: "username",
+    //       type: "text",
+    //       placeholder: "username",
+    //     },
+    //     password: {
+    //       label: "password",
+    //       type: "password",
+    //       placeholder: "password",
+    //     },
+    //   },
+    // }),
   ],
   callbacks: {
-    // async session({ session }) {
-    //    //To get the data about the user everytime to keep an existing and running session
-    //   const sessionUser = await User.findOne({ email: session.user.email });
+    async session({ session }) {
+       //To get the data about the user everytime to keep an existing and running session
+      const sessionUser = await User.findOne({ email: session.user.email });
       
-    //   // Update user id
-    //   session.user.id = sessionUser._id.toString();
+      // Update user id
+      session.user.id = sessionUser._id.toString();
 
-    //   return session;
-    // },
+      return session;
+    },
 
     async signIn({ account, profile, user, credentials }) {
       try {
+        if (account?.provider === "google") {
          // Connects to MongoDB database
         await connectToDB();
 
@@ -72,6 +73,7 @@ const handler = NextAuth({
         }
 
         return true;
+      }
       } catch (error) {
         console.log("Error checking if user exists: ", error.message);
         return false;
